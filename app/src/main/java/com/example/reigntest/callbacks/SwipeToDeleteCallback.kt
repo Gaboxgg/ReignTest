@@ -1,4 +1,4 @@
-package com.example.reigntest
+package com.example.reigntest.callbacks
 
 import android.content.Context
 import android.graphics.*
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.reigntest.R
 
 
 abstract class SwipeToDeleteCallback (internal var mContext: Context) : ItemTouchHelper.Callback() {

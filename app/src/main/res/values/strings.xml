@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ReignTest</string>
+    <string name="back">&lt; Back</string>
+    <string name="baseUrl">https://hn.algolia.com/api/v1/search_by_date/</string>
+    <string name="notUrl">Url not available</string>
+    <string name="internet">You need an Internet connection</string>
+    <string name="refreshi">You need Internet for refresh</string>
+    <string name="noRecord">No record available</string>
+    <string name="tryAgain">Error,try again later&#8230;</string>
+    <string name="removeHit">Hit was removed from the list.</string>
 </resources>

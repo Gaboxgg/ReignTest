@@ -1,4 +1,4 @@
-package com.example.reigntest
+package com.example.reigntest.data
 
 data class hitsData (
         var title:String,

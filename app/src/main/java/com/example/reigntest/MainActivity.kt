@@ -3,6 +3,10 @@ package com.example.reigntest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.reigntest.R
+import com.example.reigntest.fragments.HitsFragment
+import com.example.reigntest.fragments.WebviewFragment
+import com.example.reigntest.interfaces.IOnBackPressed
 
 class MainActivity : AppCompatActivity(){
     lateinit var fragment: Fragment

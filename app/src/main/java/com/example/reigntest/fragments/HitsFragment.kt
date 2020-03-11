@@ -1,4 +1,4 @@
-package com.example.reigntest
+package com.example.reigntest.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,6 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.reigntest.APIService
+import com.example.reigntest.R
+import com.example.reigntest.adapters.HitsAdapter
+import com.example.reigntest.callbacks.SwipeToDeleteCallback
+import com.example.reigntest.data.DBHelper
+import com.example.reigntest.data.HitPojo
+import com.example.reigntest.data.HitsPojo
+import com.example.reigntest.interfaces.IOnBackPressed
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_hits.*
 import org.jetbrains.anko.doAsync
@@ -97,7 +105,7 @@ class HitsFragment : Fragment() {
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://hn.algolia.com/api/v1/search_by_date/")
+            .baseUrl(getString(R.string.baseUrl))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -137,7 +145,7 @@ class HitsFragment : Fragment() {
             adapter = HitsAdapter(hitList) { hit ->
                 val url: String = if (hit.url != null) hit.url else hit.story_url
                 if (url == null)
-                    Toast.makeText(activity, "URL is not aviable", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, getString(R.string.notUrl), Toast.LENGTH_LONG).show()
                 else {
                     if(checkInternet()) {
                         val fragment: Fragment = WebviewFragment.newInstance(url)
@@ -147,7 +155,7 @@ class HitsFragment : Fragment() {
                             ?.add(R.id.fragment, fragment, url)
                             ?.commit()
                     }else{
-                        Toast.makeText(mContext,"You need an Internet conecction",
+                        Toast.makeText(mContext,getString(R.string.internet),
                             Toast.LENGTH_LONG).show()
                     }
                 }
@@ -164,18 +172,18 @@ class HitsFragment : Fragment() {
                 if(checkInternet()){
                     searchHits()
                 }else{
-                    Toast.makeText(mContext,"You need Internet for refresh",
+                    Toast.makeText(mContext,getString(R.string.refreshi),
                         Toast.LENGTH_LONG).show()
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
         }else{
-            Toast.makeText(mContext,"No record aviable",Toast.LENGTH_LONG).show()
+            Toast.makeText(mContext,getString(R.string.noRecord),Toast.LENGTH_LONG).show()
         }
     }
 
     private fun showErrorDialog() {
-        Toast.makeText(activity, "Error,try again later...", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, getString(R.string.tryAgain), Toast.LENGTH_LONG).show()
     }
 
     private fun enableSwipeToDelete() {
@@ -191,7 +199,7 @@ class HitsFragment : Fragment() {
                 val dbHandler = DBHelper(mContext, null)
                 dbHandler.addDeleteHit(item)
 
-                val snack = Snackbar.make(constraintLayout, "Hit was removed from the list.", Snackbar.LENGTH_LONG)
+                val snack = Snackbar.make(constraintLayout, getString(R.string.removeHit), Snackbar.LENGTH_LONG)
 
 
                 snack.setActionTextColor(Color.YELLOW)
@@ -203,5 +211,7 @@ class HitsFragment : Fragment() {
         val itemTouchhelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchhelper.attachToRecyclerView(rvHits)
     }
+
+
 
 }

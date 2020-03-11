@@ -1,4 +1,4 @@
-package com.example.reigntest
+package com.example.reigntest.data
 
 import android.R.attr.name
 import android.content.ContentValues

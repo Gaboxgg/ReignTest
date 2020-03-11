@@ -1,10 +1,12 @@
-package com.example.reigntest
+package com.example.reigntest.adapters
 
 import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.reigntest.R
+import com.example.reigntest.data.HitPojo
 import kotlinx.android.synthetic.main.item_hit.view.*
 import java.text.SimpleDateFormat
 
@@ -42,24 +44,25 @@ class HitsAdapter (var hits: List<HitPojo>,val listener: (HitPojo) -> Unit) : Re
             val minutes = seconds / 60
             val hours = minutes / 60
             val days = hours / 24
-            var date:String = ""
-            if (diff<1000)
-                date="1s"
-            else if(diff>1000 && minutes<1)
-                date=seconds.toString()+"s"
-            else if(minutes in 1..59)
-                date=minutes.toString()+"m"
-            else if(hours>=1)
-                if(minutes in 1..20)
-                    date="$hours.2h"
-                else if(minutes in 21..40)
-                    date="$hours.6h"
-                else if(minutes in 41..59)
-                    date="$hours.8h"
+            var date: String = ""
+            if (diff < 1000) {
+                date = "1s"
+            } else if (diff > 1000 && minutes < 1) {
+                date = seconds.toString() + "s"
+            } else if (minutes in 1..59) {
+                date = minutes.toString() + "m"
+            } else if (hours >= 1) {
+                var real_minutes:Long = minutes%(hours*60)
+                var minu: Char = (real_minutes*100/60).toString().elementAt(0)
+
+                if(minu.equals('0'))
+                    date = "$hours"+'h'
                 else
-                    date="$hours.h"
-            if (hours >= 24)
-                date="yesterday"
+                    date = "$hours.$minu"+"h"
+            }
+            if (hours >= 24){
+                date = "yesterday"
+        }
 
             return "$author - $date"
         }

@@ -1,4 +1,4 @@
-package com.example.reigntest
+package com.example.reigntest.data
 
 import com.google.gson.annotations.SerializedName
 
