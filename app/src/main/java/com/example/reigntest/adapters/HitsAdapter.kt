@@ -36,6 +36,7 @@ class HitsAdapter (var hits: List<HitPojo>,val listener: (HitPojo) -> Unit) : Re
             itemView.setOnClickListener { listener(hit) }
         }
 
+        //method to format the lower text in each row compose by date - author
         private fun formatText(createdAt: String, author: String): String {
             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
             val strDate: Date = sdf.parse(createdAt)

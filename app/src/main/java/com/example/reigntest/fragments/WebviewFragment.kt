@@ -1,16 +1,16 @@
 package com.example.reigntest.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.reigntest.R
-import com.example.reigntest.interfaces.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_webview.*
+
 
 class WebviewFragment : Fragment(){
     lateinit var url:String
@@ -47,7 +47,21 @@ class WebviewFragment : Fragment(){
                 view?.loadUrl(url)
                 return true
             }
+
+            override fun onPageStarted(
+                webview: WebView,
+                url: String?,
+                favicon: Bitmap?
+            ) {
+                progressBar1.visibility = View.VISIBLE
+            }
+
+            override fun onPageFinished(view: WebView, url: String?) {
+                progressBar1.visibility= View.GONE
+                super.onPageFinished(view, url)
+            }
         }
         web_view.loadUrl(url)
     }
+
 }
